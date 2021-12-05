@@ -1,4 +1,9 @@
-# CL3 <sup>v1.100</sup> - Clipboard caching utility
+# Forked version based on CL3 <sup>v1.100</sup> - Clipboard caching utility
+
+This version consume ClipData paths dynamically from `settings.ini`, 
+as well as the removal of hotkey mapping for the unused plugins.
+
+Below is the official description:
 
 CL3 started as a lightweight clone of the CLCL clipboard caching utility
 which can be found at <http://www.nakka.com/soft/clcl/index_eng.html>.

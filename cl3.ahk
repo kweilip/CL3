@@ -42,7 +42,7 @@ name:="CL3 "
 version:="v1.100"
 CycleFormat:=0
 Templates:={}
-Global CyclePlugins,History,SettingsObj,Slots,ClipChainData ; CyclePlugins v1.72+, others v1.9.4 for API access
+Global CyclePlugins,History,SettingsObj,Slots,ClipChainData,Config ; CyclePlugins v1.72+, others v1.9.4 for API access
 Error:=0
 CoordMode, Menu, Screen
 ListLines, Off
@@ -159,6 +159,7 @@ If ActivateApi
 	ObjRegisterActive(CL3API, "{01DA04FA-790F-40B6-9FB7-CE6C1D53DC38}")
 
 #Include %A_ScriptDir%\plugins\plugins.ahk
+#Include %A_ScriptDir%\lib\ConfigReader.ahk
 
 UpdateTemplate(folder,Changes)                        ; WatchFolder() above
 	{
@@ -924,7 +925,8 @@ Else If (A_ThisMenuItem = "&AutoReplace Active")
 		AutoReplace.Settings.Active:=0
 	 else
 		AutoReplace.Settings.Active:=1
-	 XA_Save("AutoReplace", A_ScriptDir "\ClipData\AutoReplace\AutoReplace.xml")
+	 XA_Save("AutoReplace", Config["ClipDataPath"]["AutoReplace"])
+	 ; XA_Save("AutoReplace", A_ScriptDir "\ClipData\AutoReplace\AutoReplace.xml")
 	 Gosub, AutoReplaceMenu
 	}
 Else If (A_ThisMenuItem = "&FIFO Active")
@@ -958,6 +960,9 @@ Else If (Trim(A_ThisMenuItem) = "Exit")
 
 Return
 
+Global Config
+MsgBox, % Config["ClipDataPath"]["History"]
+
 SaveSettings:
 SetTimer, Backup, Off
 
@@ -967,7 +972,12 @@ SetTimer, Backup, Off
 While (History.MaxIndex() > MaxHistory)
 	History.remove(History.MaxIndex())
 
-XA_Save("History", A_ScriptDir "\ClipData\History\History.xml") ; put variable name in quotes
+; MsgBox, hi
+; MsgBox, % Config
+; MsgBox, % Config["ClipDataPath"]
+MsgBox, % Config["ClipDataPath"]["History"]
+XA_Save("History", Config["ClipDataPath"]["History"])
+; XA_Save("History", A_ScriptDir "\ClipData\History\History.xml") ; put variable name in quotes
 XA_Save("stats", A_ScriptDir "\stats.xml")
 
 ;XA_Save("Slots", A_ScriptDir "\ClipData\Slots\Slots.xml")

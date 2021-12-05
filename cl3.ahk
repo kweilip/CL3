@@ -51,6 +51,9 @@ CyclePluginsToolTipLine := "`n" StrReplace( Format( "{:020}", "" ), 0, Chr(0x201
 ClipboardHistoryToggle:=0
 TemplateClip:=0
 ;CyclePluginClip:=0
+#Include %A_ScriptDir%\lib\ConfigReader.ahk
+#Include %A_ScriptDir%\lib\ArrayExtension.ahk
+#Include %A_ScriptDir%\lib\string-things.ahk
 
 iconlist:="a,c,s,t,x,y,z"
 loop, parse, iconlist, CSV
@@ -102,17 +105,17 @@ Menu, SubMenu3, Add, TempText, MenuHandler
 Menu, SubMenu4, Add, TempText, MenuHandler
 
 ; load clipboard history and templates
-IfNotExist, %A_ScriptDir%\ClipData\History\History.xml
+IfNotExist, % Config["ClipDataPath"]["History"]
 	Error:=1
 
-if (XA_Load( A_ScriptDir "\ClipData\History\History.xml") = 1) ; the name of the variable containing the array is returned OR the value 1 in case of error
+if (XA_Load( Config["ClipDataPath"]["History"]) = 1) ; the name of the variable containing the array is returned OR the value 1 in case of error
 	Error:=1
 
 If (Error = 1)
 	{
-	 FileCopy, res\history.bak.txt, %A_ScriptDir%\ClipData\History\History.xml, 1
+	 FileCopy, res\history.bak.txt, % Config["ClipDataPath"]["History"], 1
 	 History:=[]
-	 XA_Load(A_ScriptDir "\ClipData\History\History.xml") ; the name of the variable containing the array is returned OR the value 1 in case of error
+	 XA_Load(Config["ClipDataPath"]["History"]) ; the name of the variable containing the array is returned OR the value 1 in case of error
 	}
 
 OnExit, SaveSettings
@@ -159,7 +162,6 @@ If ActivateApi
 	ObjRegisterActive(CL3API, "{01DA04FA-790F-40B6-9FB7-CE6C1D53DC38}")
 
 #Include %A_ScriptDir%\plugins\plugins.ahk
-#Include %A_ScriptDir%\lib\ConfigReader.ahk
 
 UpdateTemplate(folder,Changes)                        ; WatchFolder() above
 	{
@@ -960,8 +962,6 @@ Else If (Trim(A_ThisMenuItem) = "Exit")
 
 Return
 
-Global Config
-MsgBox, % Config["ClipDataPath"]["History"]
 
 SaveSettings:
 SetTimer, Backup, Off
@@ -972,12 +972,7 @@ SetTimer, Backup, Off
 While (History.MaxIndex() > MaxHistory)
 	History.remove(History.MaxIndex())
 
-; MsgBox, hi
-; MsgBox, % Config
-; MsgBox, % Config["ClipDataPath"]
-MsgBox, % Config["ClipDataPath"]["History"]
 XA_Save("History", Config["ClipDataPath"]["History"])
-; XA_Save("History", A_ScriptDir "\ClipData\History\History.xml") ; put variable name in quotes
 XA_Save("stats", A_ScriptDir "\stats.xml")
 
 ;XA_Save("Slots", A_ScriptDir "\ClipData\Slots\Slots.xml")
@@ -1103,3 +1098,11 @@ Else
 }
 
 #include %A_ScriptDir%\lib\cl3apiclass.ahk
+
+
+
+>+F12::
+{
+	Reload
+	Return
+}

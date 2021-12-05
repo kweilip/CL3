@@ -1,5 +1,6 @@
 ;;
 ;; ConfigReader.ahk by Danil Valov <https://github.com/danilvalov/adminhelper-for-samp-rp>
+;; Simplified to load the only custom config settings.ini
 ;;
 
 class ConfigReader {
@@ -41,7 +42,7 @@ class ConfigReader {
 
   readIniSection(IniFile, SectionName) {
     IniRead, SectionValues, % IniFile, % SectionName
-    MsgBox, % SectionValues
+
     If (SectionValues && StrLen(SectionValues)) {
       Return this.parseIniValues(SectionValues)
     }
@@ -60,13 +61,13 @@ class ConfigReader {
     
     Config["ClipDataPath"] := this.readIniSection("settings.ini", "ClipDataPath")
 
-    Config := this.injectSysEnv(Config)
 
-    ; MsgBox, % Config["ClipDataPath"]["History"]
+    Config := this.injectSysEnv(Config)
   }
 
   __New() {
     this.reloadConfig("settings.ini")
+    ; MsgBox, % st_printArr(Config) ; behave like JSON.stringify(arrConfig)
 
     ; To load some section as first level config: `Config := this.readIniSection("settings.ini", "Options")`
     ; To load the concatenated string as array: `Config["EnabledPlugins"] := StrSplit(Config["EnabledPlugins"], ",")`

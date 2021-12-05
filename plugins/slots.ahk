@@ -19,12 +19,12 @@ SlotsInit:
 
 If !IsObject(Slots)
 	{
-	 IfExist, %A_ScriptDir%\ClipData\Slots\Slots.xml
+	 IfExist, % Config["ClipDataPath"]["Slots"]Slots.xml
 		{
-		 If (XA_Load(A_ScriptDir "\ClipData\Slots\Slots.xml") = 1) ; the name of the variable containing the array is returned OR the value 1 in case of error
+		 If (XA_Load( Config["ClipDataPath"]["Slots"] . "Slots.xml") = 1) ; the name of the variable containing the array is returned OR the value 1 in case of error
 			{
 			 MsgBox, 16, Slots, Slots.xml seems to be corrupt, starting a new Slots.xml
-			 FileDelete, %A_ScriptDir%\ClipData\Slots\Slots.xml
+			 FileDelete, % Config["ClipDataPath"]["Slots"]Slots.xml
 			 Slots:=[]
 			}
 		}
@@ -124,7 +124,7 @@ Loop, 10
 	 Index++
 	}
 StringReplace, SaveAsName, SaveAsName, .xml,,All
-XA_Save("Slots", A_ScriptDir "\ClipData\Slots\" SaveAsName ".xml") ; put variable name in quotes
+XA_Save("Slots", Config["ClipDataPath"]["Slots"] SaveAsName ".xml") ; put variable name in quotes
 Return
 
 LoadSlots:
@@ -132,7 +132,8 @@ Menu, SlotsMenu, Add
 Menu, SlotsMenu, Delete
 Menu, SlotsMenu, Add, Slots.xml, MenuHandlerSlots
 Menu, SlotsMenu, Add
-Loop, %A_ScriptDir%\ClipData\Slots\*.xml
+pathSlots := Config["ClipDataPath"]["Slots"]
+Loop, %pathSlots%\*.xml
 	{
 	 If (A_LoopFileName = "slots.xml")
 		Continue
@@ -144,10 +145,10 @@ Return
 MenuHandlerSlots:
 XMLSave("Slots","-" A_Now)
 Slots:=[]
-If (XA_Load(A_ScriptDir "\ClipData\Slots\" A_ThisMenuItem) = 1) ; the name of the variable containing the array is returned OR the value 1 in case of error
+If (XA_Load(Config["ClipDataPath"]["Slots"] A_ThisMenuItem) = 1) ; the name of the variable containing the array is returned OR the value 1 in case of error
 	{
 	 MsgBox, 16, Slots, %A_ThisMenuItem% seems to be corrupt, starting a new Slots file
-	 FileDelete, %A_ScriptDir%\ClipData\Slots\%A_ThisMenuItem%
+	 FileDelete, % Config["ClipDataPath"]["Slots"]%A_ThisMenuItem%
 	 Slots:=[]
 	 Loop, 10
 		Slots[Index-1]:="Slot" A_Index-1 "a"

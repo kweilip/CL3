@@ -28,23 +28,20 @@ PluginScriptFunction.ahk
 
 */
 
-pluginlistFunc= ; shown after "My Plugins" in special menu (so second or third)
+pluginlistFunc= ; shown after "My Plugins" in special menu (so second or third), exclded `Slots.ahk`
 (join|
 AutoReplace.ahk
 ClipChain.ahk
 Compact.ahk
 DumpHistory.ahk
 Search.ahk
-; Slots.ahk
-; Fifo.ahk
+Fifo.ahk
 )
 
-pluginlistClip= ; shown first in Special menu
+pluginlistClip= ; shown first in Special menu, exclded `Send.ahk, Sort.ahk`
 (join|
 Lower.ahk
 Title.ahk
-Sort.ahk
-; Send.ahk
 LowerReplaceSpace.ahk
 PasteUnwrapped.ahk
 Upper.ahk
@@ -52,7 +49,7 @@ Upper.ahk
 
 ; Gosub, SlotsInit
 Gosub, ClipChainInit
-; Gosub, FifoInit
+Gosub, FifoInit
 Gosub, AutoReplaceInit
 ; Gosub, SortMenuSetup
 ; Gosub, ccmdersetup
@@ -67,7 +64,7 @@ Gosub, AutoReplaceInit
 #include %A_ScriptDir%\plugins\Send.ahk
 #include %A_ScriptDir%\plugins\AutoReplace.ahk
 ; #include %A_ScriptDir%\plugins\Slots.ahk
-#include %A_ScriptDir%\plugins\Sort.ahk
+; #include %A_ScriptDir%\plugins\Sort.ahk
 #include %A_ScriptDir%\plugins\Search.ahk
 #include %A_ScriptDir%\plugins\DumpHistory.ahk
 #include %A_ScriptDir%\plugins\ClipChain.ahk	

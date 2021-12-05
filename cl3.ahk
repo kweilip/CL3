@@ -681,9 +681,9 @@ If (SpecialFunc = "AutoReplace")
 	}
 If IsFunc(SpecialFunc)
 	ClipText:=%SpecialFunc%(History[1].text)
-Else
-	if (SpecialFunc = "Slots")
-		Gosub, hk_slots
+; Else
+; 	if (SpecialFunc = "Slots")
+; 		Gosub, hk_slots
 Else
 	if (SpecialFunc = "Search")	
 		Gosub, hk_search

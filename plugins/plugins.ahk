@@ -35,8 +35,8 @@ ClipChain.ahk
 Compact.ahk
 DumpHistory.ahk
 Search.ahk
-Slots.ahk
-Fifo.ahk
+; Slots.ahk
+; Fifo.ahk
 )
 
 pluginlistClip= ; shown first in Special menu
@@ -44,19 +44,19 @@ pluginlistClip= ; shown first in Special menu
 Lower.ahk
 Title.ahk
 Sort.ahk
-Send.ahk
+; Send.ahk
 LowerReplaceSpace.ahk
 PasteUnwrapped.ahk
 Upper.ahk
 )
 
-Gosub, SlotsInit
+; Gosub, SlotsInit
 Gosub, ClipChainInit
-Gosub, FifoInit
+; Gosub, FifoInit
 Gosub, AutoReplaceInit
-Gosub, SortMenuSetup
-Gosub, ccmdersetup
-Gosub, NotesMenuSetup
+; Gosub, SortMenuSetup
+; Gosub, ccmdersetup
+; Gosub, NotesMenuSetup
 
 #include *i %A_ScriptDir%\plugins\MyPlugins.ahk
 
@@ -66,7 +66,7 @@ Gosub, NotesMenuSetup
 #include %A_ScriptDir%\plugins\Upper.ahk
 #include %A_ScriptDir%\plugins\Send.ahk
 #include %A_ScriptDir%\plugins\AutoReplace.ahk
-#include %A_ScriptDir%\plugins\Slots.ahk
+; #include %A_ScriptDir%\plugins\Slots.ahk
 #include %A_ScriptDir%\plugins\Sort.ahk
 #include %A_ScriptDir%\plugins\Search.ahk
 #include %A_ScriptDir%\plugins\DumpHistory.ahk
@@ -74,5 +74,5 @@ Gosub, NotesMenuSetup
 #include %A_ScriptDir%\plugins\Compact.ahk	
 #include %A_ScriptDir%\plugins\Fifo.ahk
 #include %A_ScriptDir%\plugins\PasteUnwrapped.ahk
-#include %A_ScriptDir%\plugins\ccmdr.ahk
-#include %A_ScriptDir%\plugins\notes.ahk
+; #include %A_ScriptDir%\plugins\ccmdr.ahk
+; #include %A_ScriptDir%\plugins\notes.ahk

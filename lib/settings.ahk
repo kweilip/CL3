@@ -54,7 +54,7 @@ Settings_Default()
 	 Settings_Hotkeys:={ hk_menu         :"^!v"
 		, hk_menu2         :""
 		, hk_plaintext     :"^+v"
-		, hk_slots         :"^#F12"
+		; , hk_slots         :"^#F12"
 		, hk_clipchain     :"^#F11"
 		, hk_clipchainpaste:"^v"
 		, hk_fifo          :"^#F10"
@@ -64,17 +64,17 @@ Settings_Default()
 		, hk_cycleforward  :"c"
 		, hk_cycleplugins  :"f"
 		, hk_cyclecancel   :"x" 
-		, hk_slot1         :">^1"
-		, hk_slot2         :">^2"
-		, hk_slot3         :">^3"
-		, hk_slot4         :">^4"
-		, hk_slot5         :">^5"
-		, hk_slot6         :">^6"
-		, hk_slot7         :">^7"
-		, hk_slot8         :">^8"
-		, hk_slot9         :">^9"
-		, hk_slot0         :">^0"
-		, hk_notes         :"#n"
+		; , hk_slot1         :">^1"
+		; , hk_slot2         :">^2"
+		; , hk_slot3         :">^3"
+		; , hk_slot4         :">^4"
+		; , hk_slot5         :">^5"
+		; , hk_slot6         :">^6"
+		; , hk_slot7         :">^7"
+		; , hk_slot8         :">^8"
+		; , hk_slot9         :">^9"
+		; , hk_slot0         :">^0"
+		; , hk_notes         :"#n"
 		, hk_BypassAutoReplace :""
 		, hk_cmdr          :"#j" }
 	 Settings_Settings:={ MaxHistory :"150"
@@ -102,7 +102,7 @@ Stats_Create()
 		 stats.cycleplugins:=0
 		 stats.menu:=0
 		 stats.templates:=0
-		 stats.slots:=0
+		 ; stats.slots:=0
 		 stats.clipchain:=0
 		 stats.search:=0
 		 stats.edit:=0
@@ -122,7 +122,7 @@ Settings_Hotkeys()
 	 IniRead, hk_menu          , %ini%, Hotkeys, hk_menu          ,^!v
 	 IniRead, hk_menu2         , %ini%, Hotkeys, hk_menu2         ,ERROR
 	 IniRead, hk_plaintext     , %ini%, Hotkeys, hk_plaintext     ,^+v
-	 IniRead, hk_slots         , %ini%, Hotkeys, hk_slots         ,^#F12
+	 ; IniRead, hk_slots         , %ini%, Hotkeys, hk_slots         ,^#F12
 	 IniRead, hk_clipchain     , %ini%, Hotkeys, hk_clipchain     ,^#F11
 	 IniRead, hk_clipchainpaste, %ini%, Hotkeys, hk_clipchainpaste,^v
 	 IniRead, hk_fifo          , %ini%, Hotkeys, hk_fifo          ,^#F10
@@ -132,20 +132,20 @@ Settings_Hotkeys()
 	 IniRead, hk_cycleforward  , %ini%, Hotkeys, hk_cycleforward  ,c
 	 IniRead, hk_cycleplugins  , %ini%, Hotkeys, hk_cycleplugins  ,f
 	 IniRead, hk_cyclecancel   , %ini%, Hotkeys, hk_cyclecancel   ,x
-	 IniRead, hk_notes         , %ini%, Hotkeys, hk_notes         ,#n
-	 IniRead, hk_cmdr          , %ini%, Hotkeys, hk_cmdr          ,#j
+	 ; IniRead, hk_notes         , %ini%, Hotkeys, hk_notes         ,#n
+	 ; IniRead, hk_cmdr          , %ini%, Hotkeys, hk_cmdr          ,#j
 	 IniRead, hk_BypassAutoReplace, %ini%, Hotkeys, hk_BypassAutoReplace
 	 If (hk_BypassAutoReplace = "ERROR")
 	 	hk_BypassAutoReplace:=""
 	 If (hk_menu2 = "ERROR")
 	 	hk_menu2:=""
 
-	 Loop, 10
-		{
-		 Index:=A_Index-1
-		 IniRead, hk_slot%index%, %ini%, Hotkeys, hk_slot%index%, >^%index%
-		 Hotkey, % hk_slot%index%, hk_slotpaste
-		}
+	 ; Loop, 10
+		; {
+		;  Index:=A_Index-1
+		;  IniRead, hk_slot%index%, %ini%, Hotkeys, hk_slot%index%, >^%index%
+		;  Hotkey, % hk_slot%index%, hk_slotpaste
+		; }
 
 	 Hotkey, %hk_menu%             , hk_menu
 	 If hk_menu2
@@ -162,8 +162,8 @@ Settings_Hotkeys()
 	 Hotkey, $%hk_clipchainpaste%, ClipChainPasteDoubleClick
 	 Hotkey, If
 
-	 Hotkey, %hk_fifo%             , hk_fifo
-	 Hotkey, %hk_slots%            , hk_slots
+	 ; Hotkey, %hk_fifo%             , hk_fifo
+	 ; Hotkey, %hk_slots%            , hk_slots
 	 Hotkey, %hk_search%           , hk_search
 	 Hotkey, %hk_cyclemodkey% & %hk_cyclebackward%   , hk_cyclebackward
 	 Hotkey, %hk_cyclemodkey% & %hk_cyclebackward% up, hk_cyclebackward_up
@@ -172,12 +172,12 @@ Settings_Hotkeys()
 	 Hotkey, %hk_cyclemodkey% & %hk_cycleplugins%    , hk_cycleplugins
 	 Hotkey, %hk_cyclemodkey% & %hk_cycleplugins% up , hk_cycleplugins_up
 	 Hotkey, %hk_cyclemodkey% & %hk_cyclecancel%     , hk_cyclecancel
-	 Hotkey, %hk_cmdr%                               , hk_cmdr
-	 Hotkey, %hk_notes%                              , hk_notes
-	 if !ActivateCmdr
-		Hotkey, %hk_cmdr%, off
-	 if !ActivateNotes
-		Hotkey, %hk_notes%, off
+	 ; Hotkey, %hk_cmdr%                               , hk_cmdr
+	 ; Hotkey, %hk_notes%                              , hk_notes
+	 ; if !ActivateCmdr
+		; Hotkey, %hk_cmdr%, off
+	 ; if !ActivateNotes
+		; Hotkey, %hk_notes%, off
 	}
 
 Settings_menu:

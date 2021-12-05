@@ -30,12 +30,12 @@ If (ClipChainY = "") or (ClipChainY = "ERROR")
 
 If !IsObject(ClipChainData)
 	{
-	 IfExist, %A_ScriptDir%\ClipData\ClipChain\ClipChain.xml
+	 IfExist, % Config["ClipDataPath"]["ClipChain"] . "ClipChain.xml" 
 		{
-		 If (XA_Load(A_ScriptDir "\ClipData\ClipChain\ClipChain.xml") = 1) ; the name of the variable containing the array is returned OR the value 1 in case of error
+		 If (XA_Load(Config["ClipDataPath"]["ClipChain"] . "ClipChain.xml") = 1) ; the name of the variable containing the array is returned OR the value 1 in case of error
 			{
 			 MsgBox, 16, ClipChain, ClipChain.xml seems to be corrupt, starting new empty chain.
-			 FileDelete, %A_ScriptDir%\ClipData\ClipChain\ClipChain.xml
+			 FileDelete, % Config["ClipDataPath"]["ClipChain"] . "ClipChain.xml" 
 			 ClipChain:=[]
 			}
 		}
@@ -168,7 +168,7 @@ If (SaveAsName = "")
 	 Return
 	}
 StringReplace, SaveAsName, SaveAsName, .xml,,All
-XA_Save("ClipChainData", A_ScriptDir "\ClipData\ClipChain\" SaveAsName ".xml") ; put variable name in quotes
+XA_Save("ClipChainData", Config["ClipDataPath"]["ClipChain"] SaveAsName ".xml") ; put variable name in quotes
 Return
 
 ClipChainClear:
@@ -369,7 +369,7 @@ Gosub, ClipChainSaveWindowPosition
 Gosub, ClipChainSet
 Gui, ClipChain:Default
 Gui, ClipChain:Submit, Hide
-XA_Save("ClipChainData",A_ScriptDir "\ClipData\ClipChain\ClipChain.xml")
+XA_Save("ClipChainData",Config["ClipDataPath"]["ClipChain"] . "ClipChain.xml")
 Return
 
 ClipChainSaveWindowPosition:
@@ -410,7 +410,8 @@ Menu, ClipChainLoadFile, Add
 Menu, ClipChainLoadFile, Delete
 Menu, ClipChainLoadFile, Add, ClipChain.xml, MenuHandlerClipChainLoadFile
 Menu, ClipChainLoadFile, Add
-Loop, %A_ScriptDir%\ClipData\ClipChain\*.xml
+pathClipChain := Config["ClipDataPath"]["ClipChain"]
+Loop, %pathClipChain%\*.xml
 	{
 	 If (A_LoopFileName = "ClipChain.xml")
 		Continue
@@ -420,10 +421,11 @@ Menu, ClipChainLoadFile, Show
 Return
 
 MenuHandlerClipChainLoadFile:
-If (XA_Load(A_ScriptDir "\ClipData\ClipChain\" A_ThisMenuItem) = 1) ; the name of the variable containing the array is returned OR the value 1 in case of error
+pathClipChain := Config["ClipDataPath"]["ClipChain"]
+If (XA_Load(Config["ClipDataPath"]["ClipChain"] A_ThisMenuItem) = 1) ; the name of the variable containing the array is returned OR the value 1 in case of error
 	{
 	 MsgBox, 16, ClipChain, %A_ThisMenuItem% seems to be corrupt, starting new empty ClipChain.
-	 FileDelete, %A_ScriptDir%\ClipData\ClipChain\%A_ThisMenuItem%
+	 FileDelete, %pathClipChain%\%A_ThisMenuItem%
 	 ClipChainData:=[]
 	}
 Gui, ClipChain:Default

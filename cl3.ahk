@@ -4,7 +4,7 @@ Script      : CL3 ( = CLCL CLone ) - AutoHotkey 1.1+ (Ansi and Unicode)
 Version     : 1.100
 Author      : hi5
 Purpose     : A lightweight clone of the CLCL clipboard caching utility which can be found at
-              http://www.nakka.com/soft/clcl/index_eng.html written in AutoHotkey 
+              http://www.nakka.com/soft/clcl/index_eng.html written in AutoHotkey
 Source      : https://github.com/hi5/CL3
 
 Features:
@@ -67,34 +67,34 @@ Settings_Hotkeys()
 
 ; tray menu
 Menu, Tray, Icon, res\cl3.ico, , 1
-Menu, tray, Tip , %name% %version% 
+Menu, tray, Tip , %name% %version%
 Menu, tray, NoStandard
 Menu, tray, Add, %name% %version%     , DoubleTrayClick
 Menu, tray, Icon, %name% %version%    , res\cl3.ico
-Menu, tray, Default, %name% %version% 
+Menu, tray, Default, %name% %version%
 Menu, tray, Click, 1 ; this will show the tray menu because we send {rbutton} at the DoubleTrayClick label
-Menu, tray, Add, 
+Menu, tray, Add,
 Menu, tray, Add, &AutoReplace Active  , TrayMenuHandler
 Menu, tray, Add, &FIFO Active         , TrayMenuHandler
-Menu, tray, Add, 
+Menu, tray, Add,
 Menu, tray, Add, &Usage statistics    , TrayMenuHandler
 Menu, tray, Icon,&Usage statistics    , shell32.dll, 278
-Menu, tray, Add, 
+Menu, tray, Add,
 Menu, tray, Add, &Settings            , TrayMenuHandler
 Menu, tray, Icon,&Settings            , dsuiext.dll, 36
-Menu, tray, Add, 
+Menu, tray, Add,
 Menu, tray, Add, &Reload this script  , TrayMenuHandler
 Menu, tray, Icon,&Reload this script  , shell32.dll, 239
 Menu, tray, Add, &Edit this script    , TrayMenuHandler
 Menu, tray, Icon,&Edit this script    , comres.dll, 7
-Menu, tray, Add, 
+Menu, tray, Add,
 Menu, tray, Add, &Suspend Hotkeys     , TrayMenuHandler
 Menu, tray, Icon,&Suspend Hotkeys     , %A_AhkPath%, 3
 Menu, tray, Add, &Pause Script        , TrayMenuHandler
 Menu, tray, Icon,&Pause Script        , %A_AhkPath%, 4
-Menu, tray, Add, 
+Menu, tray, Add,
 Menu, tray, Add, &Pause clipboard history, TrayMenuHandler
-Menu, tray, Add, 
+Menu, tray, Add,
 Menu, tray, Add, Exit                 , SaveSettings
 Menu, tray, Icon, %MenuPadding%Exit   , shell32.dll, 132
 
@@ -274,7 +274,7 @@ While GetKeyState(hk_cyclemodkey,"D") and cyclebackward
 	 Sleep 100
 	 KeyWait, %hk_cyclebackward% ; This prevents the keyboard's auto-repeat feature from interfering.
 	}
-ToolTip	
+ToolTip
 If (ClipCycleCounter > 0) ; If zero we've cancelled it
 	{
 	 ClipText:=History[ClipCycleCounter].text
@@ -349,7 +349,7 @@ Return
 hk_cycleplugins:
 If !ActiveWindowID
 	WinGet, ActiveWindowID, ID, A
-cycleforward:=0, cyclebackward:=0	
+cycleforward:=0, cyclebackward:=0
 CycleFormat:=0
 If (ClipCycleCounter = 0) or (ClipCycleCounter = "")
 	ClipCycleCounter:=1
@@ -387,7 +387,7 @@ if (CycleFormat > CyclePlugins.MaxIndex())
 	CycleFormat:=0
 CycleFormat++
 Sleep 100
-Return	
+Return
 
 BuildMenuHistory:
 Menu, ClipMenu, Delete
@@ -555,7 +555,7 @@ If (History.MaxIndex() > 20)
 
 		 If (A_Index > 17+Abs(MoreHistory))
 			Break
-		} 
+		}
 	}
 Else
 	{
@@ -588,7 +588,7 @@ DispMenuText(TextIn,lines="1")
 	 StringReplace, TextOut, TextOut, &, &&, All
 	 If StrLen(TextOut) > 60
 		{
-		 TextOut:=SubStr(TextOut,1,MenuWidth) " " Chr(8230) " " SubStr(RTrim(TextOut,".`n"),-10) ; 8230 ...	
+		 TextOut:=SubStr(TextOut,1,MenuWidth) " " Chr(8230) " " SubStr(RTrim(TextOut,".`n"),-10) ; 8230 ...
 		}
 	 TextOut .= " " Chr(171)
 	 if ShowLines
@@ -658,7 +658,7 @@ If (A_ThisMenu = "ClipMenu")
 else
 	MenuItemPos:=A_ThisMenuItemPos+18
 
-; debug	
+; debug
 ; MsgBox % "A_ThisMenu-" A_ThisMenu " : A_ThisMenuItem-" A_ThisMenuItemPos " : MenuItemPost-" MenuItemPos
 
 If FIFOACTIVE
@@ -677,7 +677,7 @@ Return
 SpecialMenuHandler:
 SpecialFunc:=(SubStr(A_ThisMenuItem,4))
 StringReplace, SpecialFunc, SpecialFunc, %A_Space%,,All
-If (SpecialFunc = "AutoReplace")	
+If (SpecialFunc = "AutoReplace")
 	{
 	 Gosub, AutoReplace
 	 Return
@@ -688,7 +688,7 @@ If IsFunc(SpecialFunc)
 ; 	if (SpecialFunc = "Slots")
 ; 		Gosub, hk_slots
 Else
-	if (SpecialFunc = "Search")	
+	if (SpecialFunc = "Search")
 		Gosub, hk_search
 Else
 	if (SpecialFunc = "ClipChain")
@@ -874,7 +874,7 @@ for k, v in History
 		break
 	}
 
-*/	
+*/
 
 crc:="",HaveCRCList:=""
 History:=newhistory
@@ -883,7 +883,7 @@ newhistory:=[]
 Return
 
 ; If the tray icon is double click we do not actually want to do anything
-DoubleTrayClick: 
+DoubleTrayClick:
 Send {rbutton}
 Return
 
@@ -928,7 +928,6 @@ Else If (A_ThisMenuItem = "&AutoReplace Active")
 	 else
 		AutoReplace.Settings.Active:=1
 	 XA_Save("AutoReplace", Config["ClipDataPath"]["AutoReplace"])
-	 ; XA_Save("AutoReplace", A_ScriptDir "\ClipData\AutoReplace\AutoReplace.xml")
 	 Gosub, AutoReplaceMenu
 	}
 Else If (A_ThisMenuItem = "&FIFO Active")
@@ -975,10 +974,6 @@ While (History.MaxIndex() > MaxHistory)
 XA_Save("History", Config["ClipDataPath"]["History"])
 XA_Save("stats", A_ScriptDir "\stats.xml")
 
-;XA_Save("Slots", A_ScriptDir "\ClipData\Slots\Slots.xml")
-;XA_Save("ClipChainData", A_ScriptDir "\ClipData\ClipChain\ClipChain.xml")
-;XA_Save("AutoReplace", A_ScriptDir "\ClipData\AutoReplace\AutoReplace.xml")
-
 If ActivateApi
 	ObjRegisterActive(CL3API, "")
 
@@ -1016,7 +1011,7 @@ XMLSave(savelist,id="")
 			 objectfile:=A_LoopField id ext
 			}
 		 If (objectname = "ClipChainData")
-			XA_Save(objectname, A_ScriptDir "\ClipData\ClipChain\" objectfile)
+			XA_Save(objectname, Config["ClipDataPath"]["ClipChain"] objectfile)
 		 else
 			XA_Save(objectname, A_ScriptDir "\ClipData\" objectname "\" objectfile)
 		}

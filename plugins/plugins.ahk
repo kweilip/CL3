@@ -73,3 +73,4 @@ Gosub, AutoReplaceInit
 #include %A_ScriptDir%\plugins\PasteUnwrapped.ahk
 ; #include %A_ScriptDir%\plugins\ccmdr.ahk
 ; #include %A_ScriptDir%\plugins\notes.ahk
+#include %A_ScriptDir%\plugins\PauseDetector.ahk

@@ -60,6 +60,7 @@ class ConfigReader {
     Config := {}
     
     Config["ClipDataPath"] := this.readIniSection("settings.ini", "ClipDataPath")
+    Config["weip"] := this.readIniSection("settings.ini", "weip")
 
 
     Config := this.injectSysEnv(Config)

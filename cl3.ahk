@@ -1093,11 +1093,3 @@ Else
 }
 
 #include %A_ScriptDir%\lib\cl3apiclass.ahk
-
-
-
->+F12::
-{
-	Reload
-	Return
-}
